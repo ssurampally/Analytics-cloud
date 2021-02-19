@@ -1,0 +1,8 @@
+/* comments
+css class to apply to certain widget
+*/
+
+.mybutton .sap-custom-button {
+    background-color: red;
+}
+

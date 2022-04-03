@@ -1,0 +1,76 @@
+-- Excercise 1 : Pop up window Configure
+
+-- Create a Global Script variable for Forecast %
+
+-- Create a Calculated column to increase Amount value with Global Script variable value 
+
+["BestRunBike":Order_Value]+ (["BestRunBike":Order_Value] * [@PercChange] / 100)
+
+
+-- Canvas Initialization
+
+var CountryList = Table_1.getDataSource().getMembers("Country");
+for (var i=0; i<CountryList.length; i++){
+	   if (CountryList[i].id !== ""){
+		   Dropdown_1.addItem(CountryList[i].displayId, CountryList[i].description); }}
+
+
+------------------
+
+-- Configure button On Click
+
+Popup_1.open();
+
+
+-------------------
+
+--- Popup Ok button on Click
+
+Table_1.getDataSource().setDimensionFilter("Country", Dropdown_1.getSelectedKey());         
+	PercChange = Slider_1.getValue(); 
+	Popup_1.close();
+
+
+--- Popup Cancel button on Click
+ 
+  Popup_1.close(); 
+
+
+
+---------------------------------------
+----------------------------------------
+-- Excercise 2:
+-- Timer functionality
+
+--- On script event for Timer
+
+var Measures = Chart_1.getDataSource().getMeasures();
+var MeasuresIDs = ArrayUtils.create(Type.string);
+for (var x=0; x<Measures.length; x++) {
+	 MeasuresIDs.push(Measures[x].id);}
+			
+var currentMeasure = Chart_1.getMeasures(Feed.ValueAxis);
+var currentIndex = MeasuresIDs.indexOf(currentMeasure[0]);
+var nextIndex = 0;
+if (currentIndex === MeasuresIDs.length -1) { nextIndex = 0;} else { nextIndex = currentIndex + 1;}
+Chart_1.removeMeasure(MeasuresIDs[currentIndex],Feed.ValueAxis);
+Chart_1.addMeasure(MeasuresIDs[nextIndex], Feed.ValueAxis);Timer_1.start(5);
+
+
+---
+
+-- Button for Timer on or off
+
+if (Timer_1.isRunning()) 
+    { Timer_1.stop();
+	 } else { Timer_1.start(5);}
+
+
+---------------------
+---------------------------
+-- Exercise 3:
+
+---- Export functionality Button click event
+
+ExportToExcel_1.exportReport();
+ExportToPDF_1.exportReport();

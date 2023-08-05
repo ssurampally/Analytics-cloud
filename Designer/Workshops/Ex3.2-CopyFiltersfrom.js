@@ -1,0 +1,1 @@
+Chart_1.getDataSource().copyDimensionFilterFrom(Table_1.getDataSource(),"Country") ;
